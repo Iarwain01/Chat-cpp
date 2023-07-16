@@ -1,0 +1,28 @@
+Explanation of the provided code
+TL;DR
+The provided code is a chat-room program written in C++. It establishes a connection with a server, allows users to send and receive messages, and handles user input. The program runs until the user chooses to exit.
+Detailed Explanation
+The code begins by including necessary libraries and defining some constants. It then declares global variables, including a flag for exiting the program, threads for sending and receiving messages, and a client socket.
+The catch_ctrl_c function is a signal handler for the "Ctrl + C" signal. It sends an exit message to the server, sets the exit flag to true, detaches the send and receive threads, closes the client socket, and exits the program with the given signal.
+The color function returns the ANSI escape code for the specified color code. It is used to display different colors for different users in the chat-room.
+The eraseText function erases the specified number of characters from the terminal. It is used to remove the user's input after sending a message.
+The send_message function handles sending messages to the server. It reads user input, sends the message to the server using the client socket, and handles the exit command. If the user enters "#exit", the exit flag is set to true, the receive thread is detached, the client socket is closed, and the function returns.
+The recv_message function handles receiving messages from the server. It receives the sender's name, color code, and message from the server using the client socket, and displays them on the terminal. It also handles the exit command and updates the terminal prompt. If the exit flag is set to true, the function returns.
+In the main function, a client socket is created using the socket function. The client address is set up, and a connection is established with the server using the connect function. The signal handler for "Ctrl + C" is registered using the signal function.
+The user is prompted to enter their name, which is then sent to the server using the client socket. The welcome message is displayed on the terminal.
+The send and receive threads are started using the thread class. The main thread waits for the send and receive threads to finish using the join function.
+Possible Bugs
+
+The code does not handle errors that may occur during socket creation, connection, or sending/receiving messages. Proper error handling should be implemented.
+The code assumes that the server is running on the same machine with the IP address "127.0.0.1" and port number 10000. If the server is running on a different machine or using a different port, the code needs to be modified accordingly.
+
+Possible Improvements
+
+Implement error handling to handle socket creation, connection, and sending/receiving errors gracefully.
+Add input validation to handle cases where the user enters a name or message that exceeds the maximum length.
+Implement a more robust protocol for sending and receiving messages, including message formatting and handling special characters.
+
+References
+
+C++ Sockets Programming
+C++ Threads
